@@ -1,0 +1,90 @@
+﻿<template>
+    <v-app light>
+        <v-content>
+            <section style="padding-top: 20px;">
+                <v-layout row wrap>
+                    <v-flex offset-xs10 xs1>
+                        <v-dialog v-model="dialog" max-width="500px">
+                            <v-btn offset-xs10 xs1 slot="activator" color="orange" dark class="mb-2">Регистрация</v-btn>
+                            <v-card>
+                                <v-card-title>
+                                    <span class="headline">Регистрация</span>
+                                </v-card-title>
+                                <v-card-text>
+                                    <v-container grid-list-md>
+                                        <v-layout wrap>
+
+                                            <v-flex xs12>
+                                                <v-text-field v-model="email" label="Email"
+                                                              :rules="emailRules"
+                                                              v-validate="'required|email'"
+                                                              required />
+                                            </v-flex>
+                                            <v-flex xs12>
+                                                <v-text-field label="Пароль" v-model="password" type="password"
+                                                              :rules="passwordRules"
+                                                              v-validate="'required'"
+                                                              required />
+                                            </v-flex>
+                                            <v-flex xs12>
+                                                <v-text-field label="Повторите пароль" v-model="confirmPassword" type="password"
+                                                              :rules="[(v) => !!v || 'required']"
+                                                              v-validate="'required'"
+                                                              required />
+                                            </v-flex>
+
+                                        </v-layout>
+                                    </v-container>
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="blue darken-1" flat @click.native="close">Закрыть</v-btn>
+                                    <v-btn color="blue darken-1" flat @click.native="save">Сохранить</v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+                    </v-flex>
+                </v-layout>
+            </section>
+
+            <v-form ref="form" v-model="valid">
+
+                <section style="padding-top: 60px;">
+                    <v-layout row wrap>
+                        <v-flex offset-xs4 xs4>
+                            <v-text-field label="Email" v-model="email"
+                                          :rules="[(v) => !!v || 'required']"
+                                          required/>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row wrap>
+                        <v-flex offset-xs4 xs4>
+                            <v-text-field label="Пароль" v-model="password" type="password"
+                                          :rules="[(v) => !!v || 'required']"
+                                          required/>
+                        </v-flex>
+                    </v-layout>
+                </section>
+                <section class="text-xs-center">
+                    <v-btn dark color="blue" @click.prevent="login" type="submit">
+                        Войти
+                    </v-btn>
+                </section>
+            </v-form>
+        </v-content>
+        <v-dialog v-model="dialogMessage" max-width="500px">
+            <v-card>
+                <v-card-title>
+                    {{dialogMessageTitle}}
+                </v-card-title>
+                <v-card-text>
+                    {{dialogMessageText}}
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn dark color="blue" @click.stop="dialogMessage=false">Закрыть</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+    </v-app>
+</template>
+<script src="./Account.js"></script>

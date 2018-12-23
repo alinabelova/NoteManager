@@ -1,0 +1,88 @@
+﻿<template>
+    <v-app light>
+        <v-content>
+            <div>
+                <v-dialog v-model="dialog" max-width="500px" ref="cardForm">
+                    <v-btn slot="activator" color="primary" class="mb-2">Добавить заметку</v-btn>
+                    <v-card>
+                        <v-card-title>
+                            <span class="headline">{{ formTitle }}</span>
+                        </v-card-title>
+                        <v-card-text>
+                            <v-container grid-list-md>
+                                <v-layout wrap>
+                                    <v-flex xs6 sm6 md6>
+                                        <v-text-field :label="headers[0].text" v-model="editedItem.position" type="number"></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs12 sm12 md12>
+                                        <v-text-field :label="headers[1].text" v-model="editedItem.name"></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs12 sm12 md12>
+                                        <v-text-field box :label="headers[2].text" v-model="editedItem.description" textarea rows="4"></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs12 sm8 md8 v-if="formTitle === 'Редактирование'">
+                                        <DatePicker required
+                                                    v-validate="'required'"
+                                                    :rules="[(v) => !!v || 'required']"
+                                                    v-model="editedItem.createdAt"
+                                                    :defaultValue="null"
+                                                    :label="headers[3].text" disabled></DatePicker>
+                                    </v-flex>
+                                    <v-flex xs12 sm4 md4 v-if="formTitle === 'Редактирование'">
+                                        <v-text-field label="Время"
+                                                      required
+                                                      v-validate="'required'"
+                                                      :rules="[(v) => !!v || 'required']"
+                                                      v-model="editedItem.createdAtTime"
+                                                      type="time" disabled></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs12 sm8 md8 v-if="formTitle === 'Редактирование'">
+                                        <DatePicker v-model="editedItem.modifiedAt"
+                                                    :label="headers[4].text" :defaultValue="null" disabled></DatePicker>
+                                    </v-flex>
+                                    <v-flex xs12 sm4 md4 v-if="formTitle === 'Редактирование'">
+                                        <v-text-field label="Время"
+                                                      v-model="editedItem.modifiedAtTime"
+                                                      type="time" disabled></v-text-field>
+                                    </v-flex>
+                                </v-layout>
+                            </v-container>
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="blue darken-1" flat @click.native="close">Закрыть</v-btn>
+                            <v-btn color="blue darken-1" flat @click.native="save">Сохранить</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+                <v-data-table :headers="headers"
+                              :items="notes"
+                              :search="search"
+                              :pagination.sync="pagination"
+                              :total-items="totalNotes"
+                              :loading="loading"
+                              class="elevation-1">
+                    <template slot="items" slot-scope="props">
+                            <td class="text-xs-left">{{ props.item.position }}</td>
+                            <td class="text-xs-left">{{ props.item.name }}</td>
+                            <td class="text-xs-left">{{ props.item.description }}</td>
+                            <td class="text-xs-left">{{ props.item.createdAt | russianDate}}</td>
+                            <td class="text-xs-left">{{ props.item.modifiedAt | russianDate}}</td>
+                            <td class="justify-center layout px-0">
+                                <v-btn icon class="mx-0" @click="editItem(props.item)">
+                                    <v-icon color="teal">edit</v-icon>
+                                </v-btn>
+                                <v-btn v-if="isAdmin" icon class="mx-0" @click="deleteItem(props.item)">
+                                    <v-icon color="pink">delete</v-icon>
+                                </v-btn>
+                            </td>
+                    </template>
+                    <template slot="no-data">
+                        <v-btn color="primary" @click="initialize">Обновить</v-btn>
+                    </template>
+                </v-data-table>
+            </div>
+        </v-content>
+    </v-app>
+</template>
+<script src="./Note.js"></script>

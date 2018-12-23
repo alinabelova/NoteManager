@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editable Draggable Material Cards</title>
+
+
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+    <link rel='stylesheet' href='https://supraniti.github.io/Lean-Mean-Drag-and-Drop/dist/lmdd.min.css'>
+    <link rel="stylesheet" href="~/dist/note.css">
+
+</head>
+<body>
+    <div id="example">
+        <panel v-if="!dragEvent" @switch="editMode = !editMode" :edit="editMode"></panel>
+        <div class="row" id="lmdd-scope">
+            <div class="col s12 m3 lmdd-block">
+                <div class="black card mockup">
+                    <div class="card-content white-text">
+                        <span class="card-title">Add new card</span>
+                        <p>This is a demonstration of HTML editing and building tools using Vue (for reactivity), Materialize (for CSS) and LMDD (for drag & drop)</p>
+                    </div>
+                    <div class="card-action">
+                        <a class="mockup-fab btn-floating waves-effect waves-light red" @click="addNewCard"><i class="material-icons">add</i></a>
+                        <a href="https://vuejs.org/" target="_blank">Vue</a><a href="http://materializecss.com/" target="_blank">Materialize</a><a href="https://supraniti.github.io/Lean-Mean-Drag-and-Drop/" target="_blank">LMDD</a>
+                    </div>
+                </div>
+            </div>
+            <template v-for="(card,index) in cards">
+                <card @context="apply" @removecard="removecard" :card="card" :index="index" :key="card"></card>
+            </template>
+        </div>
+        <a class="waves-effect waves-light btn black" href="https://supraniti.github.io/Lean-Mean-Drag-and-Drop/" target="_blank">More Examples...</a>
+        <div id="colorpalette" class="modal bottom-sheet">
+            <div class="palette">
+                <div v-for="color in colors" class="color" :class="color">
+                    <div class="title"></div>
+                    <div v-for="variant in colorVariants" class="sub-color waves-effect waves-light" :class="[color,variant]" @click="updatecolor(color,variant)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src='https://supraniti.github.io/Lean-Mean-Drag-and-Drop/dist/lmdd.min.js'></script>
+    <script src='https://unpkg.com/vue'></script>
+    <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js'></script>
+
+    <script src="./Notes.js"></script>
+
+
+</body>
+</html>

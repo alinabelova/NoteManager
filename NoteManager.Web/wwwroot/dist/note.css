@@ -1,0 +1,163 @@
+﻿html {
+    overflow-y: scroll;
+}
+
+.palette {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    padding: 15px;
+}
+
+.sub-color {
+    transition: 0.2s;
+    /*   flex: 1 1 0px; */
+}
+
+    .sub-color:hover {
+        transform: rotateZ(5deg)
+    }
+
+.color:hover .sub-color {
+    flex: 1 1 auto;
+    border: 1px solid white;
+}
+
+.color {
+    flex: 1 1 auto;
+    transition: 0.3s;
+    width: 75px;
+    height: 75px;
+    /*   margin:15px; */
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+    .color:hover {
+        width: 100%;
+    }
+
+.control {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+    .control .btn-floating {
+        margin: 5px;
+        opacity: 0.6;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        padding-top: 2px;
+    }
+
+        .control .btn-floating i {
+            position: absolute;
+            font-size: 20px;
+            line-height: 20px;
+        }
+
+        .control .btn-floating:hover {
+            opacity: 1;
+            transform: rotate(-360deg);
+        }
+
+.panel .btn-floating {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    padding: 7px;
+}
+
+    .panel .btn-floating i {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        font-size: 18px;
+    }
+
+#example {
+    padding: 15px;
+}
+
+.panel {
+    z-index: 1;
+    transition: 0.3s;
+    opacity: 0.75;
+}
+
+    .panel .pulse {
+        opacity: 0.5;
+        transform: rotate(-360deg);
+    }
+
+        .panel .pulse:hover {
+            opacity: 0.75;
+        }
+/* .dragged > .card, .dragged > .card::before{
+  transition:5s;
+} */
+.card {
+    transition: transform 0.3s, opacity 0s;
+}
+
+.context > .card {
+    transition: 0.3s;
+    transform: scale(1.1, 1.1);
+}
+
+.card::before {
+    content: '';
+    transform: translate3d(0px,0px,0px);
+    transition: 0.3s;
+    opacity: 0.5;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: inherit;
+    border-radius: inherit;
+    z-index: -1;
+}
+
+.edit > .card {
+    box-shadow: 5px 5px 3px 0px rgba(0,0,0,0.75);
+    opacity: 1 !important;
+}
+
+.mockup::before {
+    content: '';
+    display: block;
+    transform: rotate(2deg);
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
+    border-radius: inherit;
+}
+
+.mockup {
+    opacity: 0.4;
+    transform: rotate(-1deg);
+}
+
+    .mockup:hover {
+        opacity: 0.8;
+        transform: rotate(0deg);
+    }
+
+.mockup-fab {
+    position: absolute;
+    opacity: 1;
+    top: -20px;
+    right: 10px;
+}
+
+.lmdd-block {
+    box-sizing: border-box;
+}
